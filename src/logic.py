@@ -1,9 +1,8 @@
-from sre_parse import State
-
 from assets.blackjack_art import logo
 from src.player import Player, Dealer
 from src.deck import Deck
 from src.state import State
+
 
 class BlackjackGame:
     def __init__(self):
@@ -25,6 +24,8 @@ class BlackjackGame:
                 player.sum += 1
             else:
                 player.sum += new_card.value
+        else:
+            player.sum += new_card.value
         player.hand.append(new_card)
 
     def deal_cards(self):
@@ -36,9 +37,11 @@ class BlackjackGame:
         self.deal_cards()
         print(f"your cards: {self.player.hand}")
         print(f"your sum: {self.player.sum}")
-        print(f"dealer cards: {self.dealer.hand[0]}")
+        print(f"dealer has: {self.dealer.hand[0]}\n"
+              f"with the sum: {self.dealer.hand[0].value}")
         if self.state.check_state():
-            print(f"{self.state.state}")
+            print(f"{self.state.state} \n"
+                  f"{self.state.who_won.__class__.__name__} won the game")
             return
         choice = input("do you want another card? (y/n)")
         while choice == 'y':
@@ -46,14 +49,22 @@ class BlackjackGame:
             print(f"your cards: {self.player.hand}")
             print(f"your sum: {self.player.sum}")
             if self.state.check_state():
-                print(f"{self.state.state}")
+                print(f"{self.state.state}\n "
+                      f"{self.state.who_won.__class__.__name__} won the game")
                 return
             choice = input("do you want another card? (y/n)")
+        print(f"your cards:"
+              f"sum is {self.player.sum} {self.player.hand}\n"
+              f"dealer cards:"
+              f"{self.dealer.hand}")
         while self.dealer.sum < 17:
             self.hit(self.dealer)
+            print(f"dealer has: {self.dealer.hand}\n"
+                  f"with the sum: {self.dealer.sum}")
             if self.state.check_state():
-                print(f"{self.state.state}")
+                print(f"{self.state.state}\n"
+                      f"{self.state.who_won.__class__.__name__} won the game")
                 return
+
+        self.state.end_game()
         print(f"{self.state.state}")
-
-

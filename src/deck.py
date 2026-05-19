@@ -1,10 +1,18 @@
 from random import shuffle
 
+
 class Card:
-    def __init__(self, suit, rank,value):
+    def __init__(self, suit, rank, value):
         self.suit = suit
         self.rank = rank
         self.value = value
+
+    def __str__(self):
+        return f"{self.rank} of {self.suit}"
+
+    def __repr__(self):
+        return f"'{self.rank} of {self.suit}'"
+
 
 class Deck:
     def __init__(self):
@@ -14,12 +22,10 @@ class Deck:
         for suit in suits:
             for rank in ranks:
                 if rank in ['Jack', 'Queen', 'King']:
-                    self.cards.append(Card(suit, rank,10))
+                    self.cards.append(Card(suit, rank, 10))
                 elif rank in ['Ace']:
-                    self.cards.append(Card(suit, rank,11))
+                    self.cards.append(Card(suit, rank, 11))
                 else:
-                    self.cards.append(Card(suit, rank,int(rank)))
+                    self.cards.append(Card(suit, rank, int(rank)))
 
         shuffle(self.cards)
-
-
