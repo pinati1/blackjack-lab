@@ -1,7 +1,7 @@
 """Card drawing utilities for Blackjack.
 
 Cards are numbered 1–13: Ace=1, 2–10=face value, Jack=11, Queen=12, King=13.
-Jack, Queen, and King are each worth 10 points.
+Each card's point value equals its number (Jack=11pts, Queen=12pts, King=13pts).
 """
 
 from random import randint
@@ -20,7 +20,5 @@ def card_name(card: int) -> str:
 
 
 def card_points(card: int) -> int:
-    """Return the blackjack point value (Jack/Queen/King count as 10)."""
-    if card in (11, 12, 13):
-        return 10
+    """Return the point value for a card (equals its number: Jack=11, Queen=12, King=13)."""
     return card

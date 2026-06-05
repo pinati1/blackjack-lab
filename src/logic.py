@@ -2,7 +2,7 @@
 
 from assets.blackjack_art import logo
 from src.player import Player, CPU
-from src.deck import draw_card, card_name, card_points
+from src.deck import draw_card, card_points
 
 
 def add_card_to_hand(player: Player, card: int) -> None:
@@ -29,9 +29,17 @@ def add_card_to_hand(player: Player, card: int) -> None:
         player.aces_as_eleven -= 1
 
 
+def card_label(card: int) -> str:
+    """Return the display label for a card.
+
+    Ace shows as 'Ace'; all other cards show their number (Jack=11, Queen=12, King=13).
+    """
+    return "Ace" if card == 1 else str(card)
+
+
 def hand_display(hand: list[int]) -> str:
-    """Return a comma-separated string of card names in the hand."""
-    return ", ".join(card_name(c) for c in hand)
+    """Return a comma-separated string of card labels in the hand."""
+    return ", ".join(card_label(c) for c in hand)
 
 
 def player_turn(player: Player) -> bool:
@@ -41,15 +49,15 @@ def player_turn(player: Player) -> bool:
     """
     first_card = draw_card()
     add_card_to_hand(player, first_card)
-    print(f"Your card: {card_name(first_card)}")
+    print(f"Your card: {card_label(first_card)}")
 
     while True:
-        choice = input("Do you want another card? (yes/no): ").strip().lower()
-        if choice not in ("yes", "no"):
-            print("Invalid input. Please enter 'yes' or 'no'.")
+        choice = input("Do you want another card? (y/n): ").strip().lower()
+        if choice not in ("y", "n"):
+            print("Invalid input. Please enter 'y' for yes  or 'n' for no.")
             continue
 
-        if choice == "no":
+        if choice == "n":
             break
 
         card = draw_card()
@@ -60,6 +68,10 @@ def player_turn(player: Player) -> bool:
         if player.sum > 21:
             print("You Lost")
             return True
+
+        if player.sum == 21:
+            print("You have 21!")
+            break
 
     return False
 
@@ -73,18 +85,17 @@ def cpu_turn(cpu: CPU, user_sum: int) -> None:
     while cpu.sum < user_sum:
         card = draw_card()
         add_card_to_hand(cpu, card)
-        print(f"CPU draws: {card_name(card)} | CPU sum: {cpu.sum}")
+        print(f"CPU draws: {card_label(card)} | CPU sum: {cpu.sum}")
 
         if cpu.sum > 21:
             print("You Won")
             return
 
-    if cpu.sum == 21 and user_sum == 21:
+    if cpu.sum == user_sum:
         print("It's a tie")
     elif cpu.sum > user_sum:
-        print("CPU won")
+        print("You Lose")
     else:
-        # cpu.sum == user_sum but not both 21 → CPU failed to beat the player
         print("You Won")
 
 
@@ -96,6 +107,11 @@ def run_game() -> None:
     cpu = CPU()
 
     if player_turn(player):
+        return
+
+    if player.sum == 21 and len(player.hand) == 2:
+        # Natural blackjack (2 cards) — player wins instantly, CPU does not play
+        print("You Won")
         return
 
     cpu_turn(cpu, player.sum)
