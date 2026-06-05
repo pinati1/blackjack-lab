@@ -1,31 +1,26 @@
-from random import shuffle
+"""Card drawing utilities for Blackjack.
+
+Cards are numbered 1–13: Ace=1, 2–10=face value, Jack=11, Queen=12, King=13.
+Jack, Queen, and King are each worth 10 points.
+"""
+
+from random import randint
+
+CARD_NAMES = {1: "Ace", 11: "Jack", 12: "Queen", 13: "King"}
 
 
-class Card:
-    def __init__(self, suit, rank, value):
-        self.suit = suit
-        self.rank = rank
-        self.value = value
-
-    def __str__(self):
-        return f"{self.rank} of {self.suit}"
-
-    def __repr__(self):
-        return f"'{self.rank} of {self.suit}'"
+def draw_card() -> int:
+    """Return a random card value between 1 and 13."""
+    return randint(1, 13)
 
 
-class Deck:
-    def __init__(self):
-        self.cards = []
-        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-        for suit in suits:
-            for rank in ranks:
-                if rank in ['Jack', 'Queen', 'King']:
-                    self.cards.append(Card(suit, rank, 10))
-                elif rank in ['Ace']:
-                    self.cards.append(Card(suit, rank, 11))
-                else:
-                    self.cards.append(Card(suit, rank, int(rank)))
+def card_name(card: int) -> str:
+    """Return the display name for a card number."""
+    return CARD_NAMES.get(card, str(card))
 
-        shuffle(self.cards)
+
+def card_points(card: int) -> int:
+    """Return the blackjack point value (Jack/Queen/King count as 10)."""
+    if card in (11, 12, 13):
+        return 10
+    return card

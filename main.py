@@ -1,5 +1,10 @@
-# Blackjack Game Entry Point
-from src.logic import BlackjackGame
+"""Blackjack CLI game entry point.
+
+Run from the project root:
+    python main.py
+"""
+
+from src.logic import run_game
+
 if __name__ == "__main__":
-    game = BlackjackGame()
-    game.start()
+    run_game()
