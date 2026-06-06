@@ -1,4 +1,4 @@
-from assets.blackjack_art import logo
+from src.blackjack_art import logo
 from src.player import Player, CPU
 from src.deck import draw_card, card_points
 
