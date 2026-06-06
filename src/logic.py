@@ -1,20 +1,12 @@
-"""Core game logic for the Blackjack CLI."""
-
 from assets.blackjack_art import logo
 from src.player import Player, CPU
 from src.deck import draw_card, card_points
 
 
 def add_card_to_hand(player: Player, card: int) -> None:
-    """Add a card to a player's hand and update their sum.
-
-    Ace is counted as 11 if it doesn't cause a bust; otherwise as 1.
-    If an Ace previously counted as 11 causes the sum to exceed 21,
-    it is automatically converted to 1.
-    """
     player.hand.append(card)
 
-    if card == 1:  # Ace
+    if card == 1:
         if player.sum + 11 <= 21:
             player.sum += 11
             player.aces_as_eleven += 1
@@ -23,30 +15,20 @@ def add_card_to_hand(player: Player, card: int) -> None:
     else:
         player.sum += card_points(card)
 
-    # Convert an Ace from 11 → 1 if sum exceeds 21
     while player.sum > 21 and player.aces_as_eleven > 0:
         player.sum -= 10
         player.aces_as_eleven -= 1
 
 
 def card_label(card: int) -> str:
-    """Return the display label for a card.
-
-    Ace shows as 'Ace'; all other cards show their number (Jack=11, Queen=12, King=13).
-    """
     return "Ace" if card == 1 else str(card)
 
 
 def hand_display(hand: list[int]) -> str:
-    """Return a comma-separated string of card labels in the hand."""
     return ", ".join(card_label(c) for c in hand)
 
 
 def player_turn(player: Player) -> bool:
-    """Run the user's turn.
-
-    Returns True if the player busts (sum > 21), False otherwise.
-    """
     first_card = draw_card()
     add_card_to_hand(player, first_card)
     print(f"Your card: {card_label(first_card)}")
@@ -54,7 +36,7 @@ def player_turn(player: Player) -> bool:
     while True:
         choice = input("Do you want another card? (y/n): ").strip().lower()
         if choice not in ("y", "n"):
-            print("Invalid input. Please enter 'y' for yes  or 'n' for no.")
+            print("Invalid input. Please enter 'y' for yes or 'n' for no.")
             continue
 
         if choice == "n":
@@ -77,11 +59,6 @@ def player_turn(player: Player) -> bool:
 
 
 def cpu_turn(cpu: CPU, user_sum: int) -> None:
-    """Run the CPU's turn against the player's final sum.
-
-    CPU draws cards until its sum is at least the user's sum,
-    then the winner is determined.
-    """
     while cpu.sum < user_sum:
         card = draw_card()
         add_card_to_hand(cpu, card)
@@ -100,7 +77,6 @@ def cpu_turn(cpu: CPU, user_sum: int) -> None:
 
 
 def run_game() -> None:
-    """Start and run a full game of Blackjack."""
     print(logo)
 
     player = Player("Player")
@@ -110,7 +86,6 @@ def run_game() -> None:
         return
 
     if player.sum == 21 and len(player.hand) == 2:
-        # Natural blackjack (2 cards) — player wins instantly, CPU does not play
         print("You Won")
         return
 
