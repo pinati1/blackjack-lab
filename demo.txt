@@ -1,0 +1,66 @@
+
+1:
+
+.------.            _     _            _    _            _
+|A_  _ |.          | |   | |          | |  (_)          | |
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   <
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\
+      |  \/ K|                            _/ |
+      `------'                           |__/
+
+Your card: 8
+Do you want another card? (y/n): y
+Your cards: 8, 8
+Your sum: 16
+Do you want another card? (y/n): y
+Your cards: 8, 8, 4
+Your sum: 20
+Do you want another card? (y/n): y
+Your cards: 8, 8, 4, 2
+Your sum: 22
+You Lost
+
+
+2:
+
+.------.            _     _            _    _            _
+|A_  _ |.          | |   | |          | |  (_)          | |
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   <
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\
+      |  \/ K|                            _/ |
+      `------'                           |__/
+
+Your card: 8
+Do you want another card? (y/n): maybe
+Invalid input. Please enter 'y' for yes or 'n' for no.
+Do you want another card? (y/n): y
+Your cards: 8, 8
+Your sum: 16
+Do you want another card? (y/n): n
+CPU draws: 9 | CPU sum: 9
+CPU draws: 5 | CPU sum: 14
+CPU draws: 13 | CPU sum: 27
+You Won
+
+
+3:
+
+.------.            _     _            _    _            _
+|A_  _ |.          | |   | |          | |  (_)          | |
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   <
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\
+      |  \/ K|                            _/ |
+      `------'                           |__/
+
+Your card: 13
+Do you want another card? (y/n): n
+CPU draws: 4 | CPU sum: 4
+CPU draws: 2 | CPU sum: 6
+CPU draws: 8 | CPU sum: 14
+CPU won

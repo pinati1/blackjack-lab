@@ -71,7 +71,7 @@ def cpu_turn(cpu: CPU, user_sum: int) -> None:
     if cpu.sum == user_sum:
         print("It's a tie")
     elif cpu.sum > user_sum:
-        print("You Lose")
+        print("CPU won")
     else:
         print("You Won")
 
